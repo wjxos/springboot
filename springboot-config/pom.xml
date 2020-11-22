@@ -10,7 +10,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>springboot-first</artifactId>
+    <artifactId>springboot-config</artifactId>
 
     <dependencies>
         <dependency>

@@ -1,13 +1,13 @@
-package com.wjx.first;
+package com.wjx.config;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FristApplication {
+public class ConfigApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(FristApplication.class);
+        SpringApplication.run(ConfigApplication.class);
     }
 
 }
