@@ -100,6 +100,73 @@ private OwnerProperties ownerProperties;
       * ServiceLoader<PayService> load = ServiceLoader.load(PayService.class);加载PayService
       * main-test service.pay();直接调用实现可插拔的SPI
  
+2. 源码
+   * setInitializers //设置初始化器
+      * SpringFactoriesLoader 获取 META-INF/spring.factories里面的实例对象.
+      ```Set<String> names = new LinkedHashSet(SpringFactoriesLoader.loadFactoryNames(type, classLoader));```
+      * 获取当前所有的classpath下spring.factories里面的name（比如：自动装在类的名字）
+   * setListeners //设置初始化器
+      * 根据上一步的names来创建实例对象
+      ```List<T> instances = createSpringFactoriesInstances(type, parameterTypes, classLoader, args, names);```
+      * 调用java的反射机制生成实例对象
+3. HTTP编码配置类解析
+   * 定义类：ServerProperties
+   * 在类上面添加注解@ConfigurationProperties并制定``prefix="server"``
+   * 通过注解@EnableConfigurationProperties(ServerProperties.class)
+   * @Configuration标明这是一个配置配
+  ```java
+@ConfigurationProperties(prefix = "server", ignoreUnknownFields = true)
+public class ServerProperties {
+    private Integer port;
+    private InetAddress address;
+}
 
+@Configuration
+@EnableConfigurationProperties(ServerProperties.class)
+@ConditionalOnProperty(prefix = "server.servlet.encoding", value = "enabled", matchIfMissing = true)
+public class HttpEncodingAutoConfiguration {
+	private final Encoding properties;
+    //本方法是通过构造器的方式将ServerProperties对象传进来，进行properties的初始化
+	public HttpEncodingAutoConfiguration(ServerProperties properties) {
+		this.properties = properties.getServlet().getEncoding();
+	}
+}
+```    
+## springboot数据源的自动配置
+1. 数据源的自动管理
+```java
+@Configuration //标明是一个配置类
+public class DataSourceConfig{
+@Bean
+//读取配置文件中的spring.datasource属性值
+@ConfigurationProperties(prefix = "spring.datasource")
+    public DruidDataSource dataSource(){
+        return new DruidDataSource();
+    }
+}
+```
+2. mybatis
+```java
+@Configuration
+@EnableConfigurationProperties({MybatisProperties.class})
+public class MybatisAutoConfiguration{
+    @Bean
+    @ConditionalOnMissingBean
+    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
+        ExecutorType executorType = this.properties.getExecutorType();
+        return executorType != null ? new SqlSessionTemplate(sqlSessionFactory, executorType) : new SqlSessionTemplate(sqlSessionFactory);
+    }
+}
+
+@ConfigurationProperties(prefix = "mybatis")
+public class MybatisProperties {
+    public static final String MYBATIS_PREFIX = "mybatis";
+    private static final ResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
+    private String configLocation;
+    private String[] mapperLocations;
+    private String typeAliasesPackage;
+    private Class<?> typeAliasesSuperType;
+}
+```
 
 

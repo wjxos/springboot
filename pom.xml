@@ -11,6 +11,7 @@
 		<module>springboot-config</module>
 		<module>springboot-cons</module>
 		<module>java_spi</module>
+		<module>springboot-mybatis</module>
 	</modules>
 	<name>springboot</name>
 	<packaging>pom</packaging>
