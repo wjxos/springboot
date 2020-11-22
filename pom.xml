@@ -10,6 +10,7 @@
 		<module>springboot-first</module>
 		<module>springboot-config</module>
 		<module>springboot-cons</module>
+		<module>java_spi</module>
 	</modules>
 	<name>springboot</name>
 	<packaging>pom</packaging>

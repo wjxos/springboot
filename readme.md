@@ -86,4 +86,20 @@ public class OwnerProperties {
 @Autowired
 private OwnerProperties ownerProperties;
 ```
-   
+7. @ConfigurationProperties VS @Value
+   * @ConfigurationProperties 读取配置文件中的一个对象
+   * @Value 读取配置文件中的一个具体值
+
+## springboot自动配置解读
+1. java中的SPI（Service Provider Interface）
+   * 是java提供的一套用来被第三方实现或者扩展的API，她可以用来启用框架扩展和替换组件。
+   SPI的实现：
+      * service-commom 定义一个支付接口 PayService.pay()
+      * ali-pay 实现 AliPay.pay(); .\META-INF\services\com.wjx.service.PayService
+      * wx-pay 实现 WxPay.pay();  .\META-INF\services\com.wjx.service.PayService
+      * ServiceLoader<PayService> load = ServiceLoader.load(PayService.class);加载PayService
+      * main-test service.pay();直接调用实现可插拔的SPI
+ 
+
+
+
