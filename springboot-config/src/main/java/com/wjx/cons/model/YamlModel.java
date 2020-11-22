@@ -1,4 +1,4 @@
-package com.wjx.config.model;
+package com.wjx.cons.model;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

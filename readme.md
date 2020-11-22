@@ -54,6 +54,36 @@ public class RedisProperties {
 3. @EnableConfigurationProperties(RedisProperties.class) 开启注解
 **/
 ```
+6. 第三方组件的配置
+```java
+//1. 绑定一
+@Data
+public class AnotherComponent {
+    private boolean enable;
+    private InetAddress remoteAddress;
+}
 
+@Component
+public class MyService {
+    @Bean
+    @ConfigurationProperties("acme")
+    public AnotherComponent getAnotherComponent(){
+        return new AnotherComponent();
+    }
+}
 
+@Autowired
+private AnotherComponent anotherComponent;
+
+//绑定二（松散绑定）
+@Component
+//在属性类中前缀不可以驼峰模式，只能用羊肉串模式，在yaml中是支持驼峰配置
+@ConfigurationProperties("acme.my-person.person")
+@Data
+public class OwnerProperties {
+    private String fristName;
+}
+@Autowired
+private OwnerProperties ownerProperties;
+```
    

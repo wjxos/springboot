@@ -1,12 +1,12 @@
-package com.wjx.config.controller;
+package com.wjx.cons.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class ConfigController {
+public class FristController {
 
-    @RequestMapping("/config")
+    @RequestMapping("/frist")
     public String frist(){
         return "frist spring boot";
     }

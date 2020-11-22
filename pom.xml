@@ -9,6 +9,7 @@
 	<modules>
 		<module>springboot-first</module>
 		<module>springboot-config</module>
+		<module>springboot-cons</module>
 	</modules>
 	<name>springboot</name>
 	<packaging>pom</packaging>
