@@ -1,0 +1,16 @@
+server:
+  port: 8081
+
+acme:
+  enabled: true
+  remote-address: 192.168.0.108
+  security:
+    username: txjava
+    password: 123
+    roles:
+      - 男主角
+      - 女主角
+      - 摄影师
+  my-person:
+    person:
+      frist-name: 亮哥
