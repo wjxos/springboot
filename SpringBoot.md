@@ -1,4 +1,4 @@
-#SpringBoot原理
+# SpringBoot原理
 
 1. @SpringBootApplication
   * @SpringBootConfiguration
