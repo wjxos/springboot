@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ConsApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ConsApplication.class);
+        SpringApplication.run(ConsApplication.class, args);
     }
 
 }

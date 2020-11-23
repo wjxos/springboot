@@ -168,5 +168,38 @@ public class MybatisProperties {
     private Class<?> typeAliasesSuperType;
 }
 ```
+## 内嵌tomcat的配置与启动
+1. tomcat的配置
+   * ServletWebServerFactoryAutoConfiguration 
+```java
+@Configuration(proxyBeanMethods = false)
+@AutoConfigureOrder(Ordered.HIGHEST_PRECEDENCE)
+@ConditionalOnClass(ServletRequest.class)
+@ConditionalOnWebApplication(type = Type.SERVLET)
+@EnableConfigurationProperties(ServerProperties.class)
+@Import({ ServletWebServerFactoryAutoConfiguration.BeanPostProcessorsRegistrar.class,
+    ServletWebServerFactoryConfiguration.EmbeddedTomcat.class,
+    ServletWebServerFactoryConfiguration.EmbeddedJetty.class,
+    ServletWebServerFactoryConfiguration.EmbeddedUndertow.class })
+public class ServletWebServerFactoryAutoConfiguration {
+	@Bean
+	@ConditionalOnClass(name = "org.apache.catalina.startup.Tomcat")
+	public TomcatServletWebServerFactoryCustomizer tomcatServletWebServerFactoryCustomizer(
+			ServerProperties serverProperties) {
+		return new TomcatServletWebServerFactoryCustomizer(serverProperties);
+	}
+}
+```
 
+## spring mvc
+1. mvc 的开启
+   * @Configuration
+   * @EnablWebMvc
+   * 实现WebMvcConfigurer
+```java
+@Configuration
+@EnablWebMvc
+public class WebConfig implements WebMvcConfigurer{
 
+}
+```
